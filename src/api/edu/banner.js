@@ -38,5 +38,12 @@ export default {
             url: `/educms/banneradmin/state/${id}`,
             method: 'get'
           })
+    },
+    //根据id查询banner信息
+    getBanner(id){
+        return request({
+            url: `/educms/banneradmin/get/${id}`,
+            method: 'get'
+          })
     }
 }

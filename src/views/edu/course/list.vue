@@ -12,6 +12,18 @@
           <el-option value="Draft" label="未发布"/>
         </el-select>
       </el-form-item>
+      <el-form-item>
+        <el-select v-model="courseQuery.isExchange" clearable placeholder="积分兑换">
+          <el-option value=1 label="支持"/>
+          <el-option value=2 label="不支持"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-select v-model="courseQuery.isActivity" clearable placeholder="促销状态">
+          <el-option value=1 label="有促销"/>
+          <el-option value=2 label="无促销"/>
+        </el-select>
+      </el-form-item>
 
       <el-button type="primary" icon="el-icon-search" @click="getList()">查询</el-button>
       <el-button type="default" @click="resetData()">清空</el-button>
@@ -33,20 +45,106 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="title" label="课程名称" />
+      <el-table-column prop="title" label="课程名称" width="200"/>
+      <!-- <el-table-column prop="id" label="课程编号" /> -->
+      <el-table-column label="课程编号" width="140" >
+        <template slot-scope="scope">
+      <el-popover
+          placement="top-start"
+          width="120px"
+          trigger="click">
+          <el-button slot="reference">点击查看</el-button>
+          {{scope.row.id}}
+      </el-popover>
+        </template>
+      </el-table-column>
+      <el-table-column prop="lessonNum" label="课时数" />
 
+      
+
+      
+
+      <el-table-column prop="viewCount" label="浏览数量" />
       <el-table-column label="课程状态" >
         <template slot-scope="scope">
-          {{ scope.row.status==='Normal'?'已发布':'未发布' }}
+          <!-- {{ scope.row.status==='Normal'?'已发布':'未发布' }} -->
+          <section v-if="scope.row.status==='Draft'">
+        <el-tooltip :content="'未发布'" placement="top">
+        <el-switch value=false
+        active-value=true
+        inactive-value=false
+        active-color="#13ce66"
+        disabled>
+        </el-switch>
+        </el-tooltip>
+      </section>
+      <section v-else>
+        <el-tooltip :content="'已发布'" placement="top">
+        <el-switch value=true
+        active-value=true
+        inactive-value=false
+        active-color="#13ce66"
+        disabled>
+        </el-switch>
+        </el-tooltip>
+      </section>    
         </template>
       </el-table-column>
 
-      <el-table-column prop="lessonNum" label="课时数" />
+      
 
-      <el-table-column prop="gmtCreate" label="添加时间" />
+      <el-table-column prop="isActivity" label="促销状态">
+      <template slot-scope="scope">
+      <section v-if="Number(scope.row.isActivity) === 0">
+        <el-tooltip :content="'无促销'" placement="top">
+        <el-switch value=false
+        active-value=true
+        inactive-value=false
+        active-color="#13ce66"
+        disabled>
+        </el-switch>
+        </el-tooltip>
+      </section>
+      <section v-else>
+        <el-tooltip :content="'有促销'" placement="top">
+        <el-switch value=true
+        active-value=true
+        inactive-value=false
+        active-color="#13ce66"
+        disabled>
+        </el-switch>
+        </el-tooltip>
+      </section>    
+      </template>
+      </el-table-column>
 
-      <el-table-column prop="viewCount" label="浏览数量" />
+      <el-table-column label="积分兑换" >
+        <template slot-scope="scope">
+          <!-- {{ scope.row.isExchange===-1?'不支持': '支持'}} -->
+          <section v-if="scope.row.isExchange===0">
+        <el-tooltip :content="'不支持'" placement="top">
+        <el-switch value=false
+        active-value=true
+        inactive-value=false
+        active-color="#13ce66"
+        disabled>
+        </el-switch>
+        </el-tooltip>
+      </section>
+      <section v-else>
+        <el-tooltip :content="scope.row.isExchange+'积分'" placement="top">
+        <el-switch value=true
+        active-value=true
+        inactive-value=false
+        active-color="#13ce66"
+        disabled>
+        </el-switch>
+        </el-tooltip>
+      </section> 
 
+        </template>
+      </el-table-column>
+      <el-table-column prop="gmtCreate" label="添加时间" width="200"/>
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
           <router-link :to="'/course/info/'+scope.row.id">
@@ -85,7 +183,7 @@ export default {
           page:1,//当前页
           limit:10,//每页记录数
           total:0,//总记录数
-          courseQuery:{} //条件封装对象
+          courseQuery:{}, //条件封装对象
         }
     },
     created() { //页面渲染之前执行，一般调用methods定义的方法

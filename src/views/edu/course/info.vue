@@ -61,6 +61,11 @@
             <el-input-number :min="0" v-model="courseInfo.lessonNum" controls-position="right" placeholder="请填写课程的总课时数"/>
         </el-form-item>
 
+        <el-form-item label="积分
+        (0为不支持)">
+            <el-input-number :min="0" v-model="courseInfo.isExchange" controls-position="right" placeholder="-1为不支持积分兑换"/>
+        </el-form-item>
+
         <!-- 课程简介 TODO -->
         <!-- 课程简介-->
         <el-form-item label="课程简介">
@@ -112,7 +117,8 @@ export default {
                 lessonNum: 0,
                 description: '',
                 cover: 'https://jmu-edu.oss-cn-beijing.aliyuncs.com/2022/02/22/1.jpg',
-                price: 0
+                price: 0,
+                isExchange:0
             },
             courseId:'',
             BASE_API: process.env.BASE_API, // 接口API地址
@@ -137,6 +143,19 @@ export default {
         }
         
     },
+    watch: {  //监听
+    $route(to, from) { //路由变化方式，路由发生变化，方法就会执行
+      this.courseInfo={title: '',
+                subjectId: '',//二级分类id
+                subjectParentId:'',//一级分类id
+                teacherId: '',
+                lessonNum: 0,
+                description: '',
+                cover: 'https://jmu-edu.oss-cn-beijing.aliyuncs.com/2022/02/22/1.jpg',
+                price: 0,
+                isExchange:0}
+    }
+  },
     methods:{
         //根据课程id查询
         getInfo() {
@@ -239,7 +258,7 @@ export default {
         },
         saveOrUpdate() {
            //判断添加还是修改
-           if(!this.courseInfo.id) {
+           if(!this.courseId) {
                //添加
                this.addCourse()
            } else {

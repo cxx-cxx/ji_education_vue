@@ -27,6 +27,7 @@
         <!-- {{scope.row.imageUrl}} -->
       </el-table-column> 
       <el-table-column prop="linkUrl" label="跳转页面" width="100" />
+      <el-table-column prop="remainingDay" label="剩余天数" width="100" />
       <el-table-column prop="isDeleted" label="上架" width="100" >
       <template slot-scope="scope">
         <el-switch v-model="scope.row.isDeleted"
