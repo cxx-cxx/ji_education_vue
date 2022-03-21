@@ -160,6 +160,34 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/activity',
+    component: Layout,
+    redirect: '/activity/table',
+    name: '活动管理',
+    meta: { title: '活动管理', icon: 'example' },
+    children: [
+      {
+        path: 'table',
+        name: '活动管理列表',
+        component: () => import('@/views/edu/activity/list'),
+        meta: { title: '活动管理列表', icon: 'table' }
+      },
+      {
+        path: 'save',
+        name: '添加活动',
+        component: () => import('@/views/edu/activity/save'),
+        meta: { title: '添加活动', icon: 'tree' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'activityEdit',
+        component: () => import('@/views/edu/activity/save'),
+        meta: { title: '编辑活动', noCache: true },
+        hidden: true
+      }
+    ]
+  },
 
   {
     path: '/form',
