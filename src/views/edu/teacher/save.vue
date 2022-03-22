@@ -1,5 +1,7 @@
 <template>
+
   <div class="app-container">
+    <h2 style="text-align: center;">讲师管理</h2>
      <el-form label-width="120px">
       <el-form-item label="讲师名称">
         <el-input v-model="teacher.name"/>

@@ -19,7 +19,8 @@
 
       <el-table-column prop="title" label="名称" width="100" align="center" />
 
-      <el-table-column prop="courseId" label="绑定课程ID" width="200" align="center" />
+      <el-table-column prop="courseTitle" label="绑定课程ID" width="200" align="center" />
+      <el-table-column prop="price" label="课程原价" width="100" align="center" />
 
       <!-- <el-table-column prop="activityPrice" label="活动价格" width="100" /> -->
       <el-table-column label="活动价格" width="100" align="center">

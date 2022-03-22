@@ -74,8 +74,17 @@ export default {
         }
         //  else {
         //     this.bannerInfo={}
+        //     this.bannerInfo.remainingDay=30
+        //     this.imageUrl='https://jmu-edu.oss-cn-beijing.aliyuncs.com/2022/02/22/1.jpg'
         // }
         
+    },
+    watch: {  //监听
+        $route(to, from) { //路由变化方式，路由发生变化，方法就会执行
+            this.bannerInfo.title='',
+            this.bannerInfo.linkUrl='',
+            thi.bannerInfo.imageUrl='https://jmu-edu.oss-cn-beijing.aliyuncs.com/2022/02/22/1.jpg'
+        }
     },
     methods:{
         //根据课程id查询
