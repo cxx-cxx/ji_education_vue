@@ -58,7 +58,7 @@
       </el-popover>
         </template>
       </el-table-column>
-      <el-table-column prop="lessonNum" label="课时数" />
+      <el-table-column prop="price" label="价格" />
 
       
 
