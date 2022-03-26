@@ -188,7 +188,21 @@ export const constantRouterMap = [
       }
     ]
   },
-
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/list',
+    name: '订单管理',
+    meta: { title: '订单管理', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: '订单管理列表',
+        component: () => import('@/views/edu/order/list'),
+        meta: { title: '订单管理', icon: 'table' }
+      }
+    ]
+  },
   {
     path: '/form',
     component: Layout,
